@@ -46,10 +46,11 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
         retainedTypes.value(types.toList())
     }
 
-    internal fun configureProject(project: Project, versionCatalog: VersionCatalog) {
+    internal fun configureProject(extension: CommonExtension<*,*,*,*,*>, project: Project, versionCatalog: VersionCatalog) {
+        // Compose
+        composeHandler.configureProject(extension, project, versionCatalog)
+
         with(project) {
-            // Compose
-            composeHandler.configureProject(project, versionCatalog)
 
             // Fragment
             if(androidxFragmentEnabled.get()) {

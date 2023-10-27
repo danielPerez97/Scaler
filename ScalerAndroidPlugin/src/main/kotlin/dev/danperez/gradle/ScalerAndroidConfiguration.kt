@@ -146,7 +146,7 @@ internal class ScalerAndroidConfiguration(
         project.configureDagger(daggerConfig, versionCatalog)
 
         // Android Features
-        scalerExtension.androidHandler.featuresHandler.configureProject(project, versionCatalog)
+        scalerExtension.androidHandler.featuresHandler.configureProject(this, project, versionCatalog)
     }
 
     private fun Project.configureDagger(
