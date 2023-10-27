@@ -4,8 +4,10 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import dev.danperez.gradle.ScalerExtensionMarker
 import dev.danperez.gradle.configure
+import dev.danperez.gradle.newInstance
 import dev.danperez.gradle.property
 import dev.danperez.gradle.util.setDisallowChanges
+import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
@@ -18,9 +20,11 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     objects: ObjectFactory,
 ) {
     private var androidExtension: CommonExtension<*, *, *, *, *>? = null
+    internal val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     internal val composeEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     internal val navigationEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     internal val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
+    private val navigationHandler = objects.newInstance<AndroidNavigationHandler>()
 
     internal fun setAndroidExtension(androidExtension: CommonExtension<*, *, *, *, *>?) {
         this.androidExtension = androidExtension
@@ -30,20 +34,18 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
         composeEnabled.setDisallowChanges(true)
     }
 
-    fun navigation() {
+    fun fragment() {
+        androidxFragmentEnabled.setDisallowChanges(true)
+    }
+
+    fun navigation(action: Action<AndroidNavigationHandler>) {
+        action.execute(navigationHandler)
         navigationEnabled.setDisallowChanges(true)
     }
 
     fun retained(vararg types: RetainedType) {
         retainedTypes.value(types.toList())
 //        retainedTypes.setDisallowChanges(true)
-    }
-
-    internal fun computeNavigationConfig(): NavigationConfig {
-        return NavigationConfig(
-            enabled = navigationEnabled.get(),
-            useUiLibrary = true,
-        )
     }
 
     internal fun configureProject(project: Project, versionCatalog: VersionCatalog) {
@@ -69,21 +71,16 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
                 }
             }
 
-            // Navigation
-            val navConfig = computeNavigationConfig()
-            if (navConfig.enabled) {
+            // Fragment
+            if(androidxFragmentEnabled.get()) {
                 dependencies.add(
                     "implementation",
-                    versionCatalog.findLibrary("navigation-fragment").get()
+                    versionCatalog.findLibrary("fragment").get()
                 )
-                // Use navigation-ui
-                if (navConfig.useUiLibrary) {
-                    dependencies.add(
-                        "implementation",
-                        versionCatalog.findLibrary("navigation-fragment").get()
-                    )
-                }
             }
+
+            // Navigation
+            navigationHandler.configureProject(project, versionCatalog)
 
             // Retained
             retainedTypes.get().forEach {
@@ -106,13 +103,13 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
         }
     }
 
-    class NavigationConfig(
-        val enabled: Boolean,
-        val useUiLibrary: Boolean,
-    )
-
     enum class RetainedType {
         Activity,
-        Fragment
+        Fragment,
+    }
+
+    enum class NavigationType {
+        Activity,
+        Fragment,
     }
 }
