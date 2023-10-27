@@ -29,8 +29,9 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
         this.androidExtension = androidExtension
     }
 
-    fun compose() {
+    fun compose(action: Action<AndroidComposeHandler>? = null) {
         composeHandler.enable()
+        action?.execute(composeHandler)
     }
 
     fun fragment() {
@@ -48,7 +49,9 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
 
     internal fun configureProject(extension: CommonExtension<*,*,*,*,*>, project: Project, versionCatalog: VersionCatalog) {
         // Compose
-        composeHandler.configureProject(extension, project, versionCatalog)
+        if(composeHandler.enabled.get()) {
+            composeHandler.configureProject(extension, project, versionCatalog)
+        }
 
         with(project) {
 
