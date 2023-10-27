@@ -20,10 +20,10 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     objects: ObjectFactory,
 ) {
     private var androidExtension: CommonExtension<*, *, *, *, *>? = null
-    internal val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
-    internal val composeEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
-    internal val navigationEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
-    internal val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
+    private val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
+    private val composeEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
+    private val navigationEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
+    private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
     private val navigationHandler = objects.newInstance<AndroidNavigationHandler>()
 
     internal fun setAndroidExtension(androidExtension: CommonExtension<*, *, *, *, *>?) {
@@ -104,11 +104,6 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     }
 
     enum class RetainedType {
-        Activity,
-        Fragment,
-    }
-
-    enum class NavigationType {
         Activity,
         Fragment,
     }
