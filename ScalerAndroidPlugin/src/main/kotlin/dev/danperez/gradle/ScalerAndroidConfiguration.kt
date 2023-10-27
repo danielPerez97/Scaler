@@ -141,63 +141,12 @@ internal class ScalerAndroidConfiguration(
             }
         }
 
-        // Compose
-        project.configureCompose(scalerExtension.androidHandler.featuresHandler)
-
         // Dagger
         val daggerConfig = scalerExtension.featuresHandler.daggerHandler.computeConfig()
         project.configureDagger(daggerConfig, versionCatalog)
-        project.configureAndroidFeatures(scalerExtension.androidHandler.featuresHandler, versionCatalog)
-    }
 
-    private fun Project.configureAndroidFeatures(androidFeaturesHandler: AndroidFeaturesHandler, versionCatalog: VersionCatalog) {
-        // Compose
-        configureCompose(androidFeaturesHandler)
-
-        // Navigation
-        val navConfig = androidFeaturesHandler.computeNavigationConfig()
-        if (navConfig.enabled) {
-            dependencies.add("implementation", versionCatalog.findLibrary("navigation-fragment").get())
-            // Use navigation-ui
-            if(navConfig.useUiLibrary) {
-                dependencies.add("implementation", versionCatalog.findLibrary("navigation-fragment").get())
-            }
-        }
-
-        // Retained
-        androidFeaturesHandler.retainedTypes.get().forEach {
-            when(it) {
-                AndroidFeaturesHandler.RetainedType.Activity -> {
-                    dependencies.add("implementation", versionCatalog.findLibrary("retained-activity").get())
-                }
-                AndroidFeaturesHandler.RetainedType.Fragment -> {
-                    dependencies.add("implementation", versionCatalog.findLibrary("retained-fragment").get())
-                }
-            }
-        }
-    }
-
-    private fun Project.configureCompose(androidFeaturesHandler: AndroidFeaturesHandler) {
-        // Compose
-        val composeEnabled = androidFeaturesHandler.composeEnabled.get()
-        if(composeEnabled) {
-            configure<LibraryExtension> {
-                logger.lifecycle("Compose enabled")
-                buildFeatures {
-                    compose = true
-                }
-                composeOptions {
-                    kotlinCompilerExtensionVersion = versionCatalog.findVersion("composeCompiler").get().requiredVersion
-                }
-            }
-            dependencies.apply {
-                add("implementation", platform("androidx.compose:compose-bom:2023.03.00"))
-                add("implementation", "androidx.compose.ui:ui")
-                add("implementation", "androidx.compose.ui:ui-graphics")
-                add("implementation", "androidx.compose.ui:ui-tooling-preview")
-                add("implementation", "androidx.compose.material3:material3")
-            }
-        }
+        // Android Features
+        scalerExtension.androidHandler.featuresHandler.configureProject(project, versionCatalog)
     }
 
     private fun Project.configureDagger(
