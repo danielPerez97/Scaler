@@ -163,6 +163,18 @@ internal class ScalerAndroidConfiguration(
                 dependencies.add("implementation", versionCatalog.findLibrary("navigation-fragment").get())
             }
         }
+
+        // Retained
+        androidFeaturesHandler.retainedTypes.get().forEach {
+            when(it) {
+                AndroidFeaturesHandler.RetainedType.Activity -> {
+                    dependencies.add("implementation", versionCatalog.findLibrary("retained-activity").get())
+                }
+                AndroidFeaturesHandler.RetainedType.Fragment -> {
+                    dependencies.add("implementation", versionCatalog.findLibrary("retained-fragment").get())
+                }
+            }
+        }
     }
 
     private fun Project.configureCompose(androidFeaturesHandler: AndroidFeaturesHandler) {
