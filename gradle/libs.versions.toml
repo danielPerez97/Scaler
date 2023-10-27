@@ -1,0 +1,45 @@
+[versions]
+agp = "8.1.2"
+anvil = "2.4.8"
+autoservice = "1.0"
+composeCompiler = "1.5.3"
+compose-jb = "1.5.2"
+jdk = "20"
+kotlin = "1.9.10"
+ksp = "1.9.0-1.0.12"
+dagger = "2.48"
+navigation = "2.7.3"
+retained = "1.0.2"
+scaler-compilersdk = "34"
+scaler-minsdk = "28"
+scaler-targetsdk = "33"
+sqldelight = "2.0.0"
+
+[plugins]
+bestPracticesPlugin = { id = "com.autonomousapps.plugin-best-practices-plugin", version = "0.10" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+[libraries]
+agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+anvil-annotations-optional = { module = "com.squareup.anvil:annotations-optional", version.ref = "anvil" }
+anvil-compiler-api = { module = "com.squareup.anvil:compiler-api", version.ref = "anvil" }
+anvil-compiler-utils = { module = "com.squareup.anvil:compiler-utils", version.ref = "anvil" }
+autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
+autoservice-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice" }
+dagger-api = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+fragment = { module = "androidx.fragment:fragment-ktx", version = "1.6.1"}
+gradlePlugins-anvil = { module = "com.squareup.anvil:gradle-plugin", version.ref = "anvil" }
+gradlePlugins-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose-jb" }
+gradlePlugins-kgp = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradlePlugins-kgp-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation"}
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation"}
+retained-activity = { module = "dev.marcellogalhardo:retained-activity", version = "1.0.1" }
+retained-fragment = { module = "dev.marcellogalhardo:retained-fragment", version = "1.0.1" }
+sqldelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-driver-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-dialect-sqlite = { module = "app.cash.sqldelight:sqlite-3-25-dialect", version.ref = "sqldelight" }
