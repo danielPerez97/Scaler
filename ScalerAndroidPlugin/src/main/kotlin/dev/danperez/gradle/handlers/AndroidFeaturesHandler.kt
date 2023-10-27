@@ -21,16 +21,16 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
 ) {
     private var androidExtension: CommonExtension<*, *, *, *, *>? = null
     private val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
-    private val composeEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
     private val navigationHandler = objects.newInstance<AndroidNavigationHandler>()
+    private val composeHandler = objects.newInstance<AndroidComposeHandler>()
 
     internal fun setAndroidExtension(androidExtension: CommonExtension<*, *, *, *, *>?) {
         this.androidExtension = androidExtension
     }
 
     fun compose() {
-        composeEnabled.setDisallowChanges(true)
+        composeHandler.enable()
     }
 
     fun fragment() {
@@ -49,25 +49,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     internal fun configureProject(project: Project, versionCatalog: VersionCatalog) {
         with(project) {
             // Compose
-            if (composeEnabled.get()) {
-                configure<LibraryExtension> {
-                    logger.lifecycle("Compose enabled")
-                    buildFeatures {
-                        compose = true
-                    }
-                    composeOptions {
-                        kotlinCompilerExtensionVersion =
-                            versionCatalog.findVersion("composeCompiler").get().requiredVersion
-                    }
-                }
-                dependencies.apply {
-                    add("implementation", platform("androidx.compose:compose-bom:2023.03.00"))
-                    add("implementation", "androidx.compose.ui:ui")
-                    add("implementation", "androidx.compose.ui:ui-graphics")
-                    add("implementation", "androidx.compose.ui:ui-tooling-preview")
-                    add("implementation", "androidx.compose.material3:material3")
-                }
-            }
+            composeHandler.configureProject(project, versionCatalog)
 
             // Fragment
             if(androidxFragmentEnabled.get()) {
