@@ -24,6 +24,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
     private val navigationHandler = objects.newInstance<AndroidNavigationHandler>()
     private val composeHandler = objects.newInstance<AndroidComposeHandler>()
+    private val moleculeEnabled = objects.property<Boolean>().convention(false)
 
     internal fun setAndroidExtension(androidExtension: CommonExtension<*, *, *, *, *>?) {
         this.androidExtension = androidExtension
@@ -36,6 +37,10 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
 
     fun fragment() {
         androidxFragmentEnabled.setDisallowChanges(true)
+    }
+
+    fun molecule() {
+        moleculeEnabled.setDisallowChanges(true)
     }
 
     fun navigation(action: Action<AndroidNavigationHandler>? = null) {
@@ -61,6 +66,11 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
                     "implementation",
                     versionCatalog.findLibrary("fragment").get()
                 )
+            }
+
+            // Molecule
+            if(moleculeEnabled.get()) {
+                pluginManager.apply("app.cash.molecule")
             }
 
             // Navigation
