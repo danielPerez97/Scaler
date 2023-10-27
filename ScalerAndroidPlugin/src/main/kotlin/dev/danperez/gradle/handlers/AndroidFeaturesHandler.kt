@@ -22,7 +22,6 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     private var androidExtension: CommonExtension<*, *, *, *, *>? = null
     private val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val composeEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
-    private val navigationEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
     private val navigationHandler = objects.newInstance<AndroidNavigationHandler>()
 
@@ -38,14 +37,13 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
         androidxFragmentEnabled.setDisallowChanges(true)
     }
 
-    fun navigation(action: Action<AndroidNavigationHandler>) {
-        action.execute(navigationHandler)
-        navigationEnabled.setDisallowChanges(true)
+    fun navigation(action: Action<AndroidNavigationHandler>? = null) {
+        navigationHandler.enable()
+        action?.execute(navigationHandler)
     }
 
     fun retained(vararg types: RetainedType) {
         retainedTypes.value(types.toList())
-//        retainedTypes.setDisallowChanges(true)
     }
 
     internal fun configureProject(project: Project, versionCatalog: VersionCatalog) {
