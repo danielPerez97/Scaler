@@ -181,9 +181,6 @@ internal class ScalerAndroidConfiguration(
                     pluginManager.apply("org.jetbrains.kotlin.kapt")
                     dependencies.add("kapt", versionCatalog.findLibrary("dagger-compiler").get())
             }
-
-            // Add the scopes project
-            dependencies.add("implementation", project(":scopes"))
         }
     }
 }
