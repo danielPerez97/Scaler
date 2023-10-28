@@ -20,7 +20,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
  * TODO: Document more of this
 **/
 internal class ScalerAndroidConfiguration(
-    private val scalerProperties: ScalerProperties,
     private val scalerVersionCatalog: ScalerVersionCatalog,
     private val scalerExtension: ScalerExtension,
 ) {
@@ -113,7 +112,7 @@ internal class ScalerAndroidConfiguration(
             }
 
             configure<LibraryExtension> {
-                applyAndroidVersions(scalerProperties.requireAndroidSdkProperties(), 8)
+                applyAndroidVersions(scalerVersionCatalog, 8)
             }
         }
     }

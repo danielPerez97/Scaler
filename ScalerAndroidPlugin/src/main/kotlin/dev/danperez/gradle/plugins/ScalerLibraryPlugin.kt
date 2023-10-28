@@ -15,7 +15,6 @@ class ScalerLibraryPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val versionCatalog = project.getVersionsCatalogOrNull() ?: error("SGP requires use of version catalogs!")
         val scalerVersionCatalog = ScalerVersionCatalog(versionCatalog)
-        val scalerProperties = ScalerProperties(project)
         val scalerExtension: ScalerExtension = project.extensions.create(
             "scaler",
             ScalerExtension::class.java,
@@ -23,7 +22,6 @@ class ScalerLibraryPlugin : Plugin<Project> {
         )
 
         ScalerAndroidConfiguration(
-            scalerProperties = scalerProperties,
             scalerVersionCatalog = scalerVersionCatalog,
             scalerExtension = scalerExtension,
         ).applyTo(project)
