@@ -7,8 +7,6 @@ import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.squareup.anvil.plugin.AnvilExtension
-import dev.danperez.gradle.dependencies.ScalerDependencies
-import dev.danperez.gradle.handlers.AndroidFeaturesHandler
 import dev.danperez.gradle.handlers.DaggerHandler
 import org.gradle.api.GradleException
 import org.gradle.api.JavaVersion
@@ -16,6 +14,12 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
+/**
+ * Configuration for Android Projects used by [ScalerLibraryPlugin]
+ *
+ *
+ * TODO: Document more of this
+**/
 internal class ScalerAndroidConfiguration(
     private val scalerProperties: ScalerProperties,
     private val versionCatalog: VersionCatalog,
@@ -112,8 +116,6 @@ internal class ScalerAndroidConfiguration(
             configure<LibraryExtension> {
                 applyAndroidConfiguration(scalerProperties.requireAndroidSdkProperties(), 8)
             }
-
-            scalerExtension.androidHandler.applyTo(this@configureAndroidLibrary)
         }
     }
 
