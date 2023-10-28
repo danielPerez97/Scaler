@@ -8,7 +8,7 @@ This project applies my common configurations for Android side projects, inspire
 plugins {
     id("com.android.application") // Scaler reacts to an the com.android.application plugin being being used, so you still must apply it
     id("org.jetbrains.kotlin.android")
-    id("com.scaler.gradle.base") // Use the Scaler Gradle Plugin
+    id("dev.danperez.scaler") // Use the Scaler Gradle Plugin
 }
 
 scaler {
@@ -30,7 +30,7 @@ scaler {
 plugins {
     id("com.android.library") // Same as before - Scaler currently reacts to the com.android.library plugin being being used
     id("org.jetbrains.kotlin.android")
-    id("com.scaler.gradle.base")
+    id("dev.danperez.scaler")
 }
 
 scaler {
