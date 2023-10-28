@@ -46,6 +46,15 @@ scaler {
 }
 ```
 
+# Usage
+Currently Scaler isn't published anywhere, but you can use it locally by using `includeBuild()` in your projects settings.gradle.kts file:
+
+```kotlin
+// settings.gradle.kts
+
+includeBuild("C:\\Path\\To\\Local\\Scaler\\Clone")
+```
+
 # Future
 Scaler Gradle Plugin is heavily inspired by [slack-gradle-plugin][1], but it is my own spin on their concept that applies
 the tools I use the most in my own projects. You are welcome to use Scaler Gradle Plugin, but I do not recommend it for 
