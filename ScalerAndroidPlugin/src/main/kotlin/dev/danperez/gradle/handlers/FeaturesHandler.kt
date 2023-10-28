@@ -7,14 +7,11 @@ import dev.danperez.gradle.newInstance
 import dev.danperez.gradle.util.setDisallowChanges
 import org.gradle.api.Action
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject
 
 public abstract class FeaturesHandler @Inject constructor(
-    objects: ObjectFactory,
-    private val scalerProperties: ScalerProperties,
-    versionCatalog: VersionCatalog,
+    objects: ObjectFactory
 ) {
     // Dagger Features
     internal val daggerHandler = objects.newInstance<DaggerHandler>()

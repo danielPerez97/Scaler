@@ -3,20 +3,15 @@ package dev.danperez.gradle
 import dev.danperez.gradle.handlers.AndroidHandler
 import dev.danperez.gradle.handlers.FeaturesHandler
 import org.gradle.api.Action
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject
 
 public abstract class ScalerExtension @Inject constructor(
     objects: ObjectFactory,
-    scalerProperties: ScalerProperties,
-    versionCatalog: VersionCatalog,
+    scalerVersionCatalog: ScalerVersionCatalog,
 ) {
-    internal val androidHandler = objects.newInstance<AndroidHandler>(scalerProperties)
-    internal val featuresHandler = objects.newInstance<FeaturesHandler>(
-        scalerProperties,
-        versionCatalog
-    )
+    internal val androidHandler = objects.newInstance<AndroidHandler>(scalerVersionCatalog)
+    internal val featuresHandler = objects.newInstance<FeaturesHandler>()
 
 
     public fun android(action: Action<AndroidHandler>) {

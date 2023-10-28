@@ -50,19 +50,22 @@ scaler {
 
 # Version Catalog
 Scaler requires using a version catalog so it can look up artifacts. You supply the coordinates, and scaler will take care of the rest.
-Currently Scaler needs the following definitions to work:
+Currently Scaler needs the following definitions to work, defined in ScalerVersionCatalog.kt:
 ```toml
 [versions]
-anvil = "X.X.X"
+# Required
 composeCompiler = "X.X.X"
-dagger = "X.X.X"
-fragment = "X.X.X"
-retained = "X.X.X"
 scaler-compilersdkVersion = "X"
 scaler-minsdkVersion = "X"
 scaler-targetsdkVersion = "X"
 
+# Optional, for this example only
+anvil = "X.X.X"
+dagger = "X.X.X"
+fragment = "X.X.X"
+retained = "X.X.X"
 
+# You can use 'version.ref' or 'version' in your module versions.
 [libraries]
 anvil-annotations = { module = "com.squareup.anvil:annotations", version.ref = "anvil" }
 anvil-annotations-optional = { module = "com.squareup.anvil:annotations-optional", version.ref = "anvil" }

@@ -11,7 +11,6 @@ import dev.danperez.gradle.handlers.DaggerHandler
 import org.gradle.api.GradleException
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 /**
@@ -22,7 +21,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 **/
 internal class ScalerAndroidConfiguration(
     private val scalerProperties: ScalerProperties,
-    private val versionCatalog: VersionCatalog,
+    private val scalerVersionCatalog: ScalerVersionCatalog,
     private val scalerExtension: ScalerExtension,
 ) {
     fun applyTo(project: Project) {
@@ -60,11 +59,11 @@ internal class ScalerAndroidConfiguration(
             }
             configure<BaseAppModuleExtension> {
                 namespace = "dev.danperez.scaler"
-                compileSdk = versionCatalog.findVersion("scaler-compilersdkVersion").get().requiredVersion.toInt()
+                compileSdk = scalerVersionCatalog.scalerCompilerSdkVersion.requiredVersion.toInt()
 
                 defaultConfig {
-                    minSdk = versionCatalog.findVersion("scaler-minsdkVersion").get().requiredVersion.toInt()
-                    targetSdk = versionCatalog.findVersion("scaler-targetsdkVersion").get().requiredVersion.toInt()
+                    minSdk = scalerVersionCatalog.scalerMinSdkVersion.requiredVersion.toInt()
+                    targetSdk = scalerVersionCatalog.scalerTargetSdkVersion.requiredVersion.toInt()
                     versionCode = 1
                     versionName = "1.0"
 
@@ -94,7 +93,7 @@ internal class ScalerAndroidConfiguration(
                     compose = true
                 }
                 composeOptions {
-                    kotlinCompilerExtensionVersion = versionCatalog.findVersion("composeCompiler").get().requiredVersion
+                    kotlinCompilerExtensionVersion = scalerVersionCatalog.composeCompiler.requiredVersion
                 }
                 packaging {
                     resources {
@@ -145,15 +144,14 @@ internal class ScalerAndroidConfiguration(
 
         // Dagger
         val daggerConfig = scalerExtension.featuresHandler.daggerHandler.computeConfig()
-        project.configureDagger(daggerConfig, versionCatalog)
+        project.configureDagger(daggerConfig)
 
         // Android Features
-        scalerExtension.androidHandler.featuresHandler.configureProject(this, project, versionCatalog)
+        scalerExtension.androidHandler.featuresHandler.configureProject(this, project)
     }
 
     private fun Project.configureDagger(
         daggerConfig: DaggerHandler.DaggerConfig?,
-        versionCatalog: VersionCatalog,
     ) {
 
         logger.lifecycle("""
@@ -163,12 +161,12 @@ internal class ScalerAndroidConfiguration(
 
         if(daggerConfig != null) {
             // Add Dagger Annotations
-            dependencies.add("implementation", versionCatalog.findLibrary("dagger-api").get())
+            dependencies.add("implementation", scalerVersionCatalog.daggerApi)
 
             if(daggerConfig.enableAnvil) {
                 // Add Anvil and Anvil Optional Annotations
                 pluginManager.apply("com.squareup.anvil")
-                dependencies.add("implementation", versionCatalog.findLibrary("anvil-annotations-optional").get())
+                dependencies.add("implementation", scalerVersionCatalog.anvilAnnotationsOptional)
 
                 if(daggerConfig.anvilFactories) {
                     configure<AnvilExtension> {
@@ -179,7 +177,7 @@ internal class ScalerAndroidConfiguration(
 
             if (!daggerConfig.runtimeOnly && daggerConfig.useDaggerCompiler) {
                     pluginManager.apply("org.jetbrains.kotlin.kapt")
-                    dependencies.add("kapt", versionCatalog.findLibrary("dagger-compiler").get())
+                    dependencies.add("kapt", scalerVersionCatalog.daggerCompiler)
             }
         }
     }

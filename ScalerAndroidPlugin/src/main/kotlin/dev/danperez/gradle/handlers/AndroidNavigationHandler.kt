@@ -1,9 +1,9 @@
 package dev.danperez.gradle.handlers
 
+import dev.danperez.gradle.ScalerVersionCatalog
 import dev.danperez.gradle.property
 import dev.danperez.gradle.util.setDisallowChanges
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import javax.inject.Inject
@@ -14,6 +14,7 @@ import javax.inject.Inject
  * If enabled, it will apply the UI and Fragment libraries.
  */
 public abstract class AndroidNavigationHandler @Inject constructor(
+    private val scalerVersionCatalog: ScalerVersionCatalog,
     objects: ObjectFactory
 )
 {
@@ -23,20 +24,20 @@ public abstract class AndroidNavigationHandler @Inject constructor(
         enabled.setDisallowChanges(true)
     }
 
-    internal fun configureProject(project: Project, versionCatalog: VersionCatalog) {
+    internal fun configureProject(project: Project) {
         with(project) {
 
             if (enabled.get()) {
                 // Fragment
                 dependencies.add(
                     "implementation",
-                    versionCatalog.findLibrary("navigation-fragment").get()
+                    scalerVersionCatalog.navigationFragment
                 )
 
                 // UI
                 dependencies.add(
                     "implementation",
-                    versionCatalog.findLibrary("navigation-ui").get()
+                    scalerVersionCatalog.navigationUi
                 )
             }
         }

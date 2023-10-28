@@ -1,12 +1,12 @@
 package dev.danperez.gradle.handlers
 
 import com.android.build.api.dsl.CommonExtension
+import dev.danperez.gradle.ScalerVersionCatalog
 import dev.danperez.gradle.newInstance
 import dev.danperez.gradle.property
 import dev.danperez.gradle.util.setDisallowChanges
 import org.gradle.api.Action
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
@@ -24,12 +24,13 @@ import javax.inject.Inject
  * but not the JVM should go here.
  */
 public abstract class AndroidFeaturesHandler @Inject constructor(
+    private val scalerVersionCatalog: ScalerVersionCatalog,
     objects: ObjectFactory,
 ) {
     private val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
-    private val navigationHandler = objects.newInstance<AndroidNavigationHandler>()
-    private val composeHandler = objects.newInstance<AndroidComposeHandler>()
+    private val navigationHandler = objects.newInstance<AndroidNavigationHandler>(scalerVersionCatalog)
+    private val composeHandler = objects.newInstance<AndroidComposeHandler>(scalerVersionCatalog)
     private val moleculeEnabled = objects.property<Boolean>().convention(false)
 
     /**
@@ -74,10 +75,10 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
      * Takes a project and configures this setup against a [com.android.build.api.dsl.LibraryExtension] or
      * [com.android.build.api.dsl.ApplicationExtension], which both extend from [com.android.build.api.dsl.CommonExtension].
      */
-    internal fun configureProject(extension: CommonExtension<*,*,*,*,*>, project: Project, versionCatalog: VersionCatalog) {
+    internal fun configureProject(extension: CommonExtension<*,*,*,*,*>, project: Project) {
         // Compose
         if(composeHandler.enabled.get()) {
-            composeHandler.configureProject(extension, project, versionCatalog)
+            composeHandler.configureProject(extension, project)
         }
 
         with(project) {
@@ -86,7 +87,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
             if(androidxFragmentEnabled.get()) {
                 dependencies.add(
                     "implementation",
-                    versionCatalog.findLibrary("fragment").get()
+                    scalerVersionCatalog.fragment,
                 )
             }
 
@@ -96,7 +97,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
             }
 
             // Navigation
-            navigationHandler.configureProject(project, versionCatalog)
+            navigationHandler.configureProject(project)
 
             // Retained
             retainedTypes.get().forEach {
@@ -104,14 +105,14 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
                     RetainedType.Activity -> {
                         dependencies.add(
                             "implementation",
-                            versionCatalog.findLibrary("retained-activity").get()
+                            scalerVersionCatalog.retainedActivity
                         )
                     }
 
                     RetainedType.Fragment -> {
                         dependencies.add(
                             "implementation",
-                            versionCatalog.findLibrary("retained-fragment").get()
+                            scalerVersionCatalog.retainedFragment
                         )
                     }
                 }

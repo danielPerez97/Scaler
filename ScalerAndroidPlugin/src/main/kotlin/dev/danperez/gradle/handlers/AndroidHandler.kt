@@ -1,6 +1,6 @@
 package dev.danperez.gradle.handlers
 
-import dev.danperez.gradle.ScalerProperties
+import dev.danperez.gradle.ScalerVersionCatalog
 import dev.danperez.gradle.handlers.extensions.ScalerAndroidAppExtension
 import dev.danperez.gradle.handlers.extensions.ScalerAndroidLibraryExtension
 import dev.danperez.gradle.newInstance
@@ -21,13 +21,13 @@ import javax.inject.Inject
  */
 public abstract class AndroidHandler @Inject constructor(
     objects: ObjectFactory,
-    private val scalerProperties: ScalerProperties,
+    scalerVersionCatalog: ScalerVersionCatalog,
 ) {
     internal val libraryHandler = objects.newInstance<ScalerAndroidLibraryExtension>()
     internal val appHandler = objects.newInstance<ScalerAndroidAppExtension>()
 
     @Suppress("MemberVisibilityCanBePrivate")
-    internal val featuresHandler = objects.newInstance<AndroidFeaturesHandler>()
+    internal val featuresHandler = objects.newInstance<AndroidFeaturesHandler>(scalerVersionCatalog)
 
     public fun app(
         applicationId: String,

@@ -1,9 +1,9 @@
 package dev.danperez.gradle.handlers
 
 import com.android.build.api.dsl.CommonExtension
+import dev.danperez.gradle.ScalerVersionCatalog
 import dev.danperez.gradle.property
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import javax.inject.Inject
@@ -13,6 +13,7 @@ import javax.inject.Inject
  */
 public abstract class AndroidComposeHandler @Inject constructor(
     objects: ObjectFactory,
+    private val scalerVersionCatalog: ScalerVersionCatalog,
 ) {
 
     internal val enabled: Property<Boolean> = objects.property<Boolean>().convention(false)
@@ -30,7 +31,6 @@ public abstract class AndroidComposeHandler @Inject constructor(
     internal fun configureProject(
         extension: CommonExtension<*, *, *, *, *>,
         project: Project,
-        versionCatalog: VersionCatalog
     ) {
         require(enabled.get()) { "Internal Error: Attempting to configure Compose when it was never explicitly enabled." }
 
@@ -42,8 +42,7 @@ public abstract class AndroidComposeHandler @Inject constructor(
                     compose = true
                 }
                 composeOptions {
-                    kotlinCompilerExtensionVersion =
-                        versionCatalog.findVersion("composeCompiler").get().requiredVersion
+                    kotlinCompilerExtensionVersion = scalerVersionCatalog.composeCompiler.requiredVersion
                 }
                 dependencies.apply {
                     add("implementation", platform("androidx.compose:compose-bom:2023.03.00"))
