@@ -15,9 +15,11 @@ scaler {
     android {
         app(applicationId = "dev.danperez.app", namespace = "dev.danperez.app")
         features {
-            navigation() // Add's the AndroidX Navigation Component
-            compose() // Configures Compose
-            retained(RetainedType.Activity, RetainedType.Fragment) // Adds the retained library for Activities and Fragments
+            compose() // Configure Jetpack Compose
+            fragment() // Adds the AndroidX Fragment
+            molecule() // Configures Molecule
+            navigation() // Adds the AndroidX Navigation Component
+            retained(RetainedType.Fragment, RetainedType.Activity) // Adds the Retained library
         }
     }
     features {

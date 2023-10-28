@@ -32,28 +32,48 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     private val composeHandler = objects.newInstance<AndroidComposeHandler>()
     private val moleculeEnabled = objects.property<Boolean>().convention(false)
 
+    /**
+     * Configures Compose in an Android App/Library.
+     */
     fun compose(action: Action<AndroidComposeHandler>? = null) {
         composeHandler.enable()
         action?.execute(composeHandler)
     }
 
+    /**
+     * Adds the AndroidX Fragment as a dependency.
+     */
     fun fragment() {
         androidxFragmentEnabled.setDisallowChanges(true)
     }
 
+    /**
+     * Adds Molecule.
+     */
     fun molecule() {
         moleculeEnabled.setDisallowChanges(true)
     }
 
+    /**
+     * Adds the AndroidX Navigation Component as a dependency.
+     */
     fun navigation(action: Action<AndroidNavigationHandler>? = null) {
         navigationHandler.enable()
         action?.execute(navigationHandler)
     }
 
+    /**
+     * Adds the Retained library but requires you to specify which artifacts you need by
+     * supplying a [RetainedType] enum.
+     */
     fun retained(vararg types: RetainedType) {
         retainedTypes.value(types.toList())
     }
 
+    /**
+     * Takes a project and configures this setup against a [com.android.build.api.dsl.LibraryExtension] or
+     * [com.android.build.api.dsl.ApplicationExtension], which both extend from [com.android.build.api.dsl.CommonExtension].
+     */
     internal fun configureProject(extension: CommonExtension<*,*,*,*,*>, project: Project, versionCatalog: VersionCatalog) {
         // Compose
         if(composeHandler.enabled.get()) {
