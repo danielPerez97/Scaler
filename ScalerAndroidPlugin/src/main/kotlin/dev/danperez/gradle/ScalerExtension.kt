@@ -7,10 +7,6 @@ import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject
 
-@DslMarker
-public annotation class ScalerExtensionMarker
-
-@ScalerExtensionMarker
 public abstract class ScalerExtension @Inject constructor(
     objects: ObjectFactory,
     scalerProperties: ScalerProperties,

@@ -2,7 +2,6 @@ package dev.danperez.gradle.handlers
 
 import com.android.build.api.dsl.CommonExtension
 import dev.danperez.gradle.ScalerExtension
-import dev.danperez.gradle.ScalerExtensionMarker
 import dev.danperez.gradle.ScalerProperties
 import dev.danperez.gradle.newInstance
 import dev.danperez.gradle.util.setDisallowChanges
@@ -12,7 +11,6 @@ import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject
 
-@ScalerExtensionMarker
 public abstract class FeaturesHandler @Inject constructor(
     objects: ObjectFactory,
     private val scalerProperties: ScalerProperties,

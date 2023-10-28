@@ -1,9 +1,6 @@
 package dev.danperez.gradle.handlers
 
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.api.dsl.LibraryExtension
-import dev.danperez.gradle.ScalerExtensionMarker
-import dev.danperez.gradle.configure
 import dev.danperez.gradle.newInstance
 import dev.danperez.gradle.property
 import dev.danperez.gradle.util.setDisallowChanges
@@ -15,20 +12,25 @@ import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import javax.inject.Inject
 
-@ScalerExtensionMarker
+/**
+ * Handler for configuring different features in an Android project(app or library) including:
+ * - Setting up Compose
+ * - Getting the AndroidX Fragment Library
+ * - Enabling Molecule
+ * - Getting the AndroidX Navigation Component
+ * - Getting the Retained Library
+ *
+ * This is for Android features only, not JVM features. Any feature that's only appropriate for Android
+ * but not the JVM should go here.
+ */
 public abstract class AndroidFeaturesHandler @Inject constructor(
     objects: ObjectFactory,
 ) {
-    private var androidExtension: CommonExtension<*, *, *, *, *>? = null
     private val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
     private val navigationHandler = objects.newInstance<AndroidNavigationHandler>()
     private val composeHandler = objects.newInstance<AndroidComposeHandler>()
     private val moleculeEnabled = objects.property<Boolean>().convention(false)
-
-    internal fun setAndroidExtension(androidExtension: CommonExtension<*, *, *, *, *>?) {
-        this.androidExtension = androidExtension
-    }
 
     fun compose(action: Action<AndroidComposeHandler>? = null) {
         composeHandler.enable()

@@ -1,6 +1,5 @@
 package dev.danperez.gradle.handlers
 
-import dev.danperez.gradle.ScalerExtensionMarker
 import dev.danperez.gradle.property
 import dev.danperez.gradle.util.setDisallowChanges
 import org.gradle.api.Project
@@ -9,7 +8,11 @@ import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import javax.inject.Inject
 
-@ScalerExtensionMarker
+/**
+ * Handler responsible for configuring the AndroidX Navigation Component in a library or app module.
+ *
+ * If enabled, it will apply the UI and Fragment libraries.
+ */
 public abstract class AndroidNavigationHandler @Inject constructor(
     objects: ObjectFactory
 )

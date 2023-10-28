@@ -8,6 +8,9 @@ import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import javax.inject.Inject
 
+/**
+ * Handler responsible for Configuring Compose in an Android project.
+ */
 public abstract class AndroidComposeHandler @Inject constructor(
     objects: ObjectFactory,
 ) {

@@ -1,13 +1,12 @@
 package dev.danperez.gradle.handlers
 
-import dev.danperez.gradle.ScalerExtensionMarker
 import dev.danperez.gradle.property
 import dev.danperez.gradle.util.setDisallowChanges
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
 import javax.inject.Inject
 
-@ScalerExtensionMarker
+
 public abstract class DaggerHandler @Inject constructor(objects: ObjectFactory) {
     internal val enabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     internal val useDaggerCompiler: Property<Boolean> = objects.property<Boolean>().convention(false)

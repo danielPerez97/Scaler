@@ -1,6 +1,5 @@
 package dev.danperez.gradle.handlers
 
-import dev.danperez.gradle.ScalerExtensionMarker
 import dev.danperez.gradle.ScalerProperties
 import dev.danperez.gradle.handlers.extensions.ScalerAndroidAppExtension
 import dev.danperez.gradle.handlers.extensions.ScalerAndroidLibraryExtension
@@ -10,7 +9,16 @@ import org.gradle.api.GradleException
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject
 
-@ScalerExtensionMarker
+/**
+ * Handler for configuring a project with a 'com.android.library' or 'com.android.application'
+ * module.
+ *
+ * For libraries, it's possible to use the `library(namespace = "my.namespace")` function,
+ * and for an application, you would use `app(applicationId = "my.id", namespace = "my.namespace")`.
+ *
+ * This will set up a module with Scaler's base properties which are loaded from a `libs.versions.toml`
+ * file.
+ */
 public abstract class AndroidHandler @Inject constructor(
     objects: ObjectFactory,
     private val scalerProperties: ScalerProperties,
