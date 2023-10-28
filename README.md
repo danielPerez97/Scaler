@@ -48,6 +48,34 @@ scaler {
 }
 ```
 
+# Version Catalog
+Scaler requires using a version catalog so it can look up artifacts. You supply the coordinates, and scaler will take care of the rest.
+Currently Scaler needs the following definitions to work:
+```toml
+[versions]
+anvil = "X.X.X"
+composeCompiler = "X.X.X"
+dagger = "X.X.X"
+fragment = "X.X.X"
+retained = "X.X.X"
+scaler-compilersdkVersion = "X"
+scaler-minsdkVersion = "X"
+scaler-targetsdkVersion = "X"
+
+
+[libraries]
+anvil-annotations = { module = "com.squareup.anvil:annotations", version.ref = "anvil" }
+anvil-annotations-optional = { module = "com.squareup.anvil:annotations-optional", version.ref = "anvil" }
+dagger-api = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment"}
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation"}
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation"}
+retained-activity = { module = "dev.marcellogalhardo:retained-activity", version.ref = "retained" }
+retained-fragment = { module = "dev.marcellogalhardo:retained-fragment", version.ref = "retained" }
+```
+
+
 # Usage
 Currently Scaler isn't published anywhere, but you can use it locally by using `includeBuild()` in your projects settings.gradle.kts file:
 
