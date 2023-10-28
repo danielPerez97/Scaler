@@ -114,7 +114,7 @@ internal class ScalerAndroidConfiguration(
             }
 
             configure<LibraryExtension> {
-                applyAndroidConfiguration(scalerProperties.requireAndroidSdkProperties(), 8)
+                applyAndroidVersions(scalerProperties.requireAndroidSdkProperties(), 8)
             }
         }
     }

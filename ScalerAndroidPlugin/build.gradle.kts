@@ -5,18 +5,10 @@ plugins {
 }
 
 gradlePlugin {
-//    plugins.create("scaler-root") {
-//        id = "com.scaler.gradle.root"
-//        implementationClass = "dev.danperez.gradle.ScalerRootPlugin"
-//    }
     plugins.create("scaler-base") {
         id = "com.scaler.gradle.base"
         implementationClass = "dev.danperez.gradle.plugins.ScalerLibraryPlugin"
     }
-//    plugins.create("apkVersioning") {
-//        id = "com.scaler.gradle.apk-versioning"
-//        implementationClass = "dev.danperez.gradle.ApkVersioningPlugin"
-//    }
 }
 
 dependencies {
