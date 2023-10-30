@@ -2,7 +2,6 @@ package dev.danperez.gradle.handlers
 
 import com.android.build.api.dsl.CommonExtension
 import dev.danperez.gradle.ScalerExtension
-import dev.danperez.gradle.ScalerProperties
 import dev.danperez.gradle.newInstance
 import dev.danperez.gradle.util.setDisallowChanges
 import org.gradle.api.Action

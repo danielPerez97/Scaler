@@ -37,14 +37,6 @@ internal fun String.snakeToCamel(upper: Boolean = false): String {
     }
 }
 
-internal fun Project.jdkVersion(): Int {
-    return ScalerProperties(this).jdkVersion
-}
-
-internal fun Project.jvmTargetVersion(): Int {
-    return ScalerProperties(this).jvmTarget
-}
-
 internal fun Project.getVersionsCatalog(name: String = "libs"): VersionCatalog {
     return getVersionsCatalogOrNull(name) ?: error("No versions catalog found!")
 }

@@ -2,7 +2,6 @@ package dev.danperez.gradle.plugins
 
 import dev.danperez.gradle.ScalerAndroidConfiguration
 import dev.danperez.gradle.ScalerExtension
-import dev.danperez.gradle.ScalerProperties
 import dev.danperez.gradle.ScalerVersionCatalog
 import dev.danperez.gradle.getVersionsCatalogOrNull
 import org.gradle.api.Plugin
