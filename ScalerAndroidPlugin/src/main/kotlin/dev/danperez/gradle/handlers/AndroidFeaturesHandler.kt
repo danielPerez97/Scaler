@@ -1,6 +1,8 @@
 package dev.danperez.gradle.handlers
 
+import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import dev.danperez.gradle.ScalerVersionCatalog
 import dev.danperez.gradle.newInstance
 import dev.danperez.gradle.property
@@ -10,6 +12,7 @@ import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import java.net.InetAddress
 import javax.inject.Inject
 
 /**
@@ -32,6 +35,8 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     private val navigationHandler = objects.newInstance<AndroidNavigationHandler>(scalerVersionCatalog)
     private val composeHandler = objects.newInstance<AndroidComposeHandler>(scalerVersionCatalog)
     private val moleculeEnabled = objects.property<Boolean>().convention(false)
+    private val provideDebugBuildUrlInBuildConfig = objects.property<Boolean>().convention(false)
+    private val apiUrl = objects.property<String>()
 
     /**
      * Configures Compose in an Android App/Library.
@@ -61,6 +66,19 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     fun navigation(action: Action<AndroidNavigationHandler>? = null) {
         navigationHandler.enable()
         action?.execute(navigationHandler)
+    }
+
+    /**
+     * Generates an API_URL in a BuildConfig file. Note: This is for application modules ONLY.
+     * BuildConfig adds time to builds and should be used seldomly if possible.
+     *
+     * This method can be used with InetAddress.localHost() to provide this machines IP address
+     * to the application. This is useful if your machine that is building the android app is also
+     * hosting an HTTP server, perhaps with Spring Boot or a Ktor project.
+     */
+    fun provideApiUrlInBuildConfig(apiUrl: String) {
+        provideDebugBuildUrlInBuildConfig.setDisallowChanges(true)
+        this.apiUrl.setDisallowChanges(apiUrl)
     }
 
     /**
@@ -116,6 +134,27 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
                         )
                     }
                 }
+            }
+        }
+
+        project.logger.lifecycle("Extension is: $extension")
+        // API Url
+        when(extension) {
+            is ApplicationExtension -> {
+                with(extension) {
+                    buildTypes {
+                        debug {
+                            buildConfigField("String", "API_URL", "\"${apiUrl.get()}\"")
+                        }
+                    }
+
+                    buildFeatures {
+                        buildConfig = true
+                    }
+                }
+            }
+            else -> {
+                project.logger.lifecycle("NOT HIT")
             }
         }
     }
