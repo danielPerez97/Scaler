@@ -12,7 +12,7 @@ import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 /**
- * Configuration for Android Projects used by [ScalerLibraryPlugin]
+ * Configuration for Android Projects used by [dev.danperez.gradle.plugins.ScalerLibraryPlugin]
  *
  *
  * TODO: Document more of this
