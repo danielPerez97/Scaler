@@ -6,8 +6,6 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.squareup.anvil.plugin.AnvilExtension
-import dev.danperez.gradle.handlers.DaggerHandler
 import org.gradle.api.GradleException
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
@@ -141,43 +139,10 @@ internal class ScalerAndroidConfiguration(
             }
         }
 
-        // Dagger
-        val daggerConfig = scalerExtension.featuresHandler.daggerHandler.computeConfig()
-        project.configureDagger(daggerConfig)
+        // Jvm Features
+        scalerExtension.jvmFeaturesHandler.configureProject(project)
 
         // Android Features
         scalerExtension.androidHandler.featuresHandler.configureProject(this, project)
-    }
-
-    private fun Project.configureDagger(
-        daggerConfig: DaggerHandler.DaggerConfig?,
-    ) {
-
-        logger.lifecycle("""
-                [Dagger Configuration]
-                $daggerConfig
-            """.trimIndent())
-
-        if(daggerConfig != null) {
-            // Add Dagger Annotations
-            dependencies.add("implementation", scalerVersionCatalog.daggerApi)
-
-            if(daggerConfig.enableAnvil) {
-                // Add Anvil and Anvil Optional Annotations
-                pluginManager.apply("com.squareup.anvil")
-                dependencies.add("implementation", scalerVersionCatalog.anvilAnnotationsOptional)
-
-                if(daggerConfig.anvilFactories) {
-                    configure<AnvilExtension> {
-                        generateDaggerFactories.set(true)
-                    }
-                }
-            }
-
-            if (!daggerConfig.runtimeOnly && daggerConfig.useDaggerCompiler) {
-                    pluginManager.apply("org.jetbrains.kotlin.kapt")
-                    dependencies.add("kapt", scalerVersionCatalog.daggerCompiler)
-            }
-        }
     }
 }

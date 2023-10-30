@@ -19,6 +19,7 @@ scaler {
             fragment() // Adds the AndroidX Fragment
             molecule() // Configures Molecule
             navigation() // Adds the AndroidX Navigation Component
+            okhttp() // Adds OkHttp
             retained(RetainedType.Fragment, RetainedType.Activity) // Adds the Retained library
         }
     }
@@ -55,6 +56,7 @@ Currently Scaler needs the following definitions to work, defined in ScalerVersi
 [versions]
 # Required
 composeCompiler = "X.X.X"
+okhtp = "X.X.X"
 scaler-compilersdkVersion = "X"
 scaler-minsdkVersion = "X"
 scaler-targetsdkVersion = "X"
@@ -64,6 +66,7 @@ anvil = "X.X.X"
 dagger = "X.X.X"
 fragment = "X.X.X"
 retained = "X.X.X"
+retrofit = "X.X.X"
 
 # You can use 'version.ref' or 'version' in your module versions.
 [libraries]
@@ -74,8 +77,11 @@ dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = 
 fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment"}
 navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation"}
 navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation"}
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retained-activity = { module = "dev.marcellogalhardo:retained-activity", version.ref = "retained" }
 retained-fragment = { module = "dev.marcellogalhardo:retained-fragment", version.ref = "retained" }
+retrofit = { module = "com.squareup.retrofit:retrofit", version.ref = "retrofit" }
+retrofit-ktx-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version = "1.0.0" }
 ```
 
 
