@@ -37,7 +37,6 @@ public abstract class AndroidComposeHandler @Inject constructor(
         with(project) {
             with(extension) {
                 // Compose
-                logger.lifecycle("Compose enabled")
                 buildFeatures {
                     compose = true
                 }

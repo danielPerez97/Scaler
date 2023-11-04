@@ -8,6 +8,7 @@ import dev.danperez.sgp.newInstance
 import dev.danperez.sgp.property
 import dev.danperez.sgp.util.setDisallowChanges
 import org.gradle.api.Action
+import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.ListProperty
@@ -137,7 +138,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
             }
         }
 
-        project.logger.lifecycle("Extension is: $extension")
+        project.logger.debug("Extension is: $extension")
         // API Url
         when(extension) {
             is ApplicationExtension -> {
@@ -154,7 +155,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
                 }
             }
             else -> {
-                project.logger.lifecycle("NOT HIT")
+                project.logger.debug("No BuildConfigField's for Library modules")
             }
         }
     }
