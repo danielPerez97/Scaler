@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm")
     `java-gradle-plugin`
     alias(libs.plugins.bestPracticesPlugin)
+    alias(libs.plugins.mavenPublish)
 }
 
 gradlePlugin {

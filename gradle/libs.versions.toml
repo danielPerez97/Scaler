@@ -4,6 +4,7 @@ anvil = "2.4.8"
 autoservice = "1.0"
 composeCompiler = "1.5.3"
 compose-jb = "1.5.2"
+gradlePublish = "1.2.1"
 jdk = "20"
 kotlin = "1.9.10"
 ksp = "1.9.0-1.0.12"
@@ -19,7 +20,8 @@ sqldelight = "2.0.0"
 [plugins]
 bestPracticesPlugin = { id = "com.autonomousapps.plugin-best-practices-plugin", version = "0.10" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-mavenPublishBase = { id = "com.vanniktech.maven.publish.base", version.ref = "mavenPublish" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
+gradlePublish = { id = "com.gradle.plugin-publish", version.ref = "gradlePublish" }
 
 [libraries]
 agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
