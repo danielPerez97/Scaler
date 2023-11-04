@@ -7,7 +7,7 @@ plugins {
 gradlePlugin {
     plugins.create("scaler-base") {
         id = "dev.danperez.scaler"
-        implementationClass = "dev.danperez.gradle.plugins.ScalerLibraryPlugin"
+        implementationClass = "dev.danperez.sgp.plugins.ScalerLibraryPlugin"
     }
 }
 

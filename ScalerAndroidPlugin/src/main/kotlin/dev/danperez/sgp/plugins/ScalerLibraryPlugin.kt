@@ -1,9 +1,9 @@
 package dev.danperez.sgp.plugins
 
-import dev.danperez.gradle.ScalerAndroidConfiguration
-import dev.danperez.gradle.ScalerExtension
-import dev.danperez.gradle.ScalerVersionCatalog
-import dev.danperez.gradle.getVersionsCatalogOrNull
+import dev.danperez.sgp.ScalerAndroidConfiguration
+import dev.danperez.sgp.ScalerExtension
+import dev.danperez.sgp.ScalerVersionCatalog
+import dev.danperez.sgp.getVersionsCatalogOrNull
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

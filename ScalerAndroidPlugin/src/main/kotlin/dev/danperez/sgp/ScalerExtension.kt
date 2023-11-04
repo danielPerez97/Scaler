@@ -1,7 +1,7 @@
 package dev.danperez.sgp
 
-import dev.danperez.gradle.handlers.AndroidHandler
-import dev.danperez.gradle.handlers.JvmFeaturesHandler
+import dev.danperez.sgp.handlers.AndroidHandler
+import dev.danperez.sgp.handlers.JvmFeaturesHandler
 import org.gradle.api.Action
 import org.gradle.api.model.ObjectFactory
 import javax.inject.Inject

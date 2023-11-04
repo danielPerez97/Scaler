@@ -1,8 +1,8 @@
 package dev.danperez.sgp.handlers
 
-import dev.danperez.gradle.ScalerVersionCatalog
-import dev.danperez.gradle.property
-import dev.danperez.gradle.util.setDisallowChanges
+import dev.danperez.sgp.ScalerVersionCatalog
+import dev.danperez.sgp.property
+import dev.danperez.sgp.util.setDisallowChanges
 import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property

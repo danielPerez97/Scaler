@@ -3,10 +3,10 @@ package dev.danperez.sgp.handlers
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import dev.danperez.gradle.ScalerVersionCatalog
-import dev.danperez.gradle.newInstance
-import dev.danperez.gradle.property
-import dev.danperez.gradle.util.setDisallowChanges
+import dev.danperez.sgp.ScalerVersionCatalog
+import dev.danperez.sgp.newInstance
+import dev.danperez.sgp.property
+import dev.danperez.sgp.util.setDisallowChanges
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory

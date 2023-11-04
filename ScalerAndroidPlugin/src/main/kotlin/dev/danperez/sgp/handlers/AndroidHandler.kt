@@ -1,9 +1,9 @@
 package dev.danperez.sgp.handlers
 
-import dev.danperez.gradle.ScalerVersionCatalog
-import dev.danperez.gradle.handlers.extensions.ScalerAndroidAppExtension
-import dev.danperez.gradle.handlers.extensions.ScalerAndroidLibraryExtension
-import dev.danperez.gradle.newInstance
+import dev.danperez.sgp.ScalerVersionCatalog
+import dev.danperez.sgp.handlers.extensions.ScalerAndroidAppExtension
+import dev.danperez.sgp.handlers.extensions.ScalerAndroidLibraryExtension
+import dev.danperez.sgp.newInstance
 import org.gradle.api.Action
 import org.gradle.api.GradleException
 import org.gradle.api.model.ObjectFactory
