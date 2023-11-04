@@ -8,6 +8,7 @@ jdk = "20"
 kotlin = "1.9.10"
 ksp = "1.9.0-1.0.12"
 dagger = "2.48"
+mavenPublish = "0.25.3"
 navigation = "2.7.3"
 retained = "1.0.2"
 scaler-compilersdk = "34"
@@ -18,6 +19,7 @@ sqldelight = "2.0.0"
 [plugins]
 bestPracticesPlugin = { id = "com.autonomousapps.plugin-best-practices-plugin", version = "0.10" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+mavenPublishBase = { id = "com.vanniktech.maven.publish.base", version.ref = "mavenPublish" }
 
 [libraries]
 agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }

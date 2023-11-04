@@ -1,4 +1,4 @@
-package dev.danperez.gradle.handlers
+package dev.danperez.sgp.handlers
 
 import dev.danperez.gradle.ScalerVersionCatalog
 import dev.danperez.gradle.property

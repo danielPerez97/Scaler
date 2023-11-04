@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalContracts::class)
 
-package dev.danperez.gradle.util
+package dev.danperez.sgp.util
 
 import java.util.Properties
 import kotlin.contracts.contract

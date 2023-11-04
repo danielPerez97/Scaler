@@ -1,4 +1,4 @@
-package dev.danperez.gradle.gradle
+package dev.danperez.sgp.gradle
 
 import org.gradle.api.tasks.TaskContainer
 import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask

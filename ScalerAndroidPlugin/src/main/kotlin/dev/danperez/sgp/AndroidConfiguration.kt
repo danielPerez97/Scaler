@@ -1,4 +1,4 @@
-package dev.danperez.gradle
+package dev.danperez.sgp
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
@@ -10,7 +10,7 @@ import org.gradle.api.JavaVersion
  * which both extend from [CommonExtension].
  */
 fun CommonExtension<*, *, *, *, *>.applyAndroidVersions(
-    scalerVersionCatalog: ScalerVersionCatalog,
+    scalerVersionCatalog: dev.danperez.sgp.ScalerVersionCatalog,
     jvmTargetVersion: Int,
     )
 {

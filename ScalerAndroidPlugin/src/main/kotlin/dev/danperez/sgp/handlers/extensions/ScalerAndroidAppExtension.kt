@@ -1,4 +1,4 @@
-package dev.danperez.gradle.handlers.extensions
+package dev.danperez.sgp.handlers.extensions
 
 import org.gradle.api.provider.Property
 

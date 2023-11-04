@@ -1,4 +1,4 @@
-package dev.danperez.gradle.handlers
+package dev.danperez.sgp.handlers
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension

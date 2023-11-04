@@ -1,4 +1,4 @@
-package dev.danperez.gradle
+package dev.danperez.sgp
 
 import dev.danperez.gradle.handlers.AndroidHandler
 import dev.danperez.gradle.handlers.JvmFeaturesHandler

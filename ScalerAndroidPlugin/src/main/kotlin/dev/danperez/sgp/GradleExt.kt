@@ -2,7 +2,7 @@
     ExperimentalStdlibApi::class
 )
 
-package dev.danperez.gradle
+package dev.danperez.sgp
 
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.LibraryPlugin

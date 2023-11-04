@@ -1,4 +1,4 @@
-package dev.danperez.gradle
+package dev.danperez.sgp
 
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle
 import org.gradle.api.artifacts.MinimalExternalModuleDependency

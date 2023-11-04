@@ -1,4 +1,4 @@
-package dev.danperez.gradle.handlers
+package dev.danperez.sgp.handlers
 
 import com.squareup.anvil.plugin.AnvilExtension
 import dev.danperez.gradle.ScalerVersionCatalog

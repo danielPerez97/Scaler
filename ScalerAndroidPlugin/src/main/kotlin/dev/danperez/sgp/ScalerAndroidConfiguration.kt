@@ -1,4 +1,4 @@
-package dev.danperez.gradle
+package dev.danperez.sgp
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension

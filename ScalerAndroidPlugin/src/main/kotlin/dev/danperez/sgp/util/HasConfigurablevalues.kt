@@ -1,4 +1,4 @@
-package dev.danperez.gradle.util
+package dev.danperez.sgp.util
 
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.provider.ListProperty

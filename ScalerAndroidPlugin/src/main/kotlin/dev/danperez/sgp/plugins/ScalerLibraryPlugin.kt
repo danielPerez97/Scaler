@@ -1,4 +1,4 @@
-package dev.danperez.gradle.plugins
+package dev.danperez.sgp.plugins
 
 import dev.danperez.gradle.ScalerAndroidConfiguration
 import dev.danperez.gradle.ScalerExtension
