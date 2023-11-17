@@ -31,10 +31,14 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     private val scalerVersionCatalog: ScalerVersionCatalog,
     objects: ObjectFactory,
 ) {
-    private val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
-    private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
+    // Handlers
     private val navigationHandler = objects.newInstance<AndroidNavigationHandler>(scalerVersionCatalog)
     private val composeHandler = objects.newInstance<AndroidComposeHandler>(scalerVersionCatalog)
+    private val testingHandler = objects.newInstance<AndroidTestingFeaturesHandler>(scalerVersionCatalog)
+
+    // Enabled/Disabled
+    private val androidxFragmentEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
+    private val retainedTypes: ListProperty<RetainedType> = objects.listProperty(RetainedType::class.java)
     private val moleculeEnabled = objects.property<Boolean>().convention(false)
     private val provideDebugBuildUrlInBuildConfig = objects.property<Boolean>().convention(false)
     private val apiUrl = objects.property<String>()
@@ -88,6 +92,10 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
      */
     fun retained(vararg types: RetainedType) {
         retainedTypes.value(types.toList())
+    }
+
+    fun testing(action: Action<AndroidTestingFeaturesHandler>) {
+        action.execute(testingHandler)
     }
 
     /**
