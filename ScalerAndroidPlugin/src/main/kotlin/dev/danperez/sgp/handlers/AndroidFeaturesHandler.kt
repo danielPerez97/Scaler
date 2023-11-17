@@ -144,6 +144,9 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
                     }
                 }
             }
+
+            // Testing features
+            testingHandler.configureProject(extension, project)
         }
 
         if(provideDebugBuildUrlInBuildConfig.get()) {
