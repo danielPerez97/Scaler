@@ -27,7 +27,7 @@ abstract class AndroidTestingFeaturesHandler @Inject constructor(
     }
 
     fun compose() {
-        useEspresso.setDisallowChanges(true)
+        useComposeTesting.setDisallowChanges(true)
     }
 
     // TODO: Get this artifacts into [ScalerVersionCatalog]
