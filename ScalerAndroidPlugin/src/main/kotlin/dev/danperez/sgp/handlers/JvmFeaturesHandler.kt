@@ -15,8 +15,8 @@ public abstract class JvmFeaturesHandler @Inject constructor(
 ) {
     // Dagger Features
     internal val daggerHandler = objects.newInstance<DaggerHandler>(scalerVersionCatalog)
+    private val okHttpHandler = objects.newInstance<OkHttpHandler>(scalerVersionCatalog)
     private val retrofitHandler = objects.newInstance<RetrofitHandler>(scalerVersionCatalog)
-    private val useOkHttp = objects.property<Boolean>().convention(false)
     private val useKotlinXSerialization = objects.property<Boolean>().convention(false)
 
     /**
@@ -39,8 +39,9 @@ public abstract class JvmFeaturesHandler @Inject constructor(
      * @param applyBom Applies the Bill Of Materials OkHttp provides if consumers want to add additional dependencies not provided
      * by Scaler Gradle Plugin
      */
-    fun okHttp() {
-        useOkHttp.setDisallowChanges(true)
+    fun okHttp(action: Action<OkHttpHandler> ? = null) {
+        okHttpHandler.useOkHttp.setDisallowChanges(true)
+        action?.execute(okHttpHandler)
     }
 
     /**
@@ -67,11 +68,8 @@ public abstract class JvmFeaturesHandler @Inject constructor(
             }
 
             // OkHttp
-            if(useOkHttp.get()) {
-                with(dependencies) {
-                    // Add OkHttp
-                    add("implementation", scalerVersionCatalog.okhttp)
-                }
+            if(okHttpHandler.useOkHttp.get()) {
+                okHttpHandler.configureProject(project)
             }
 
             // Retrofit
