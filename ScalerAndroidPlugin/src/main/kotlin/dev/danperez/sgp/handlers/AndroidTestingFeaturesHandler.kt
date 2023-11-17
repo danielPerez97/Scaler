@@ -43,7 +43,7 @@ abstract class AndroidTestingFeaturesHandler @Inject constructor(
             }
 
             if(useComposeTesting.get()) {
-                add("implementation", platform("androidx.compose:compose-bom:2023.03.00"))
+                add("androidTestImplementation", platform("androidx.compose:compose-bom:2023.03.00"))
                 add("androidTestImplementation", "androidx.compose.ui:ui-test-junit4")
             }
         }
