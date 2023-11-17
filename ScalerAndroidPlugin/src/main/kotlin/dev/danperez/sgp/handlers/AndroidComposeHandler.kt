@@ -3,6 +3,7 @@ package dev.danperez.sgp.handlers
 import com.android.build.api.dsl.CommonExtension
 import dev.danperez.sgp.ScalerVersionCatalog
 import dev.danperez.sgp.property
+import dev.danperez.sgp.util.setDisallowChanges
 import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
@@ -19,6 +20,10 @@ public abstract class AndroidComposeHandler @Inject constructor(
     internal val enabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val useActivityArtifact: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val includeTestArtifactEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
+
+    fun activity() {
+        useActivityArtifact.setDisallowChanges(true)
+    }
 
     fun includeTestArtifact() {
         includeTestArtifactEnabled.set(true)
