@@ -13,6 +13,7 @@ public abstract class RetrofitHandler @Inject constructor(
 ) {
     internal val useRetrofit = objects.property<Boolean>().convention(false)
     private val useKotlinXSerializationConverter = objects.property<Boolean>().convention(false)
+    private val useScalarsConverter = objects.property<Boolean>().convention(false)
 
     /**
      * Adds the kotlinx.serialization converter as a dependency
@@ -21,6 +22,10 @@ public abstract class RetrofitHandler @Inject constructor(
      */
     fun kotlinXSerializationConverter() {
         useKotlinXSerializationConverter.setDisallowChanges(true)
+    }
+
+    fun scalarsConverter() {
+        useScalarsConverter.setDisallowChanges(true)
     }
 
     internal fun configureProject(project: Project) {
@@ -33,7 +38,15 @@ public abstract class RetrofitHandler @Inject constructor(
                 if (useKotlinXSerializationConverter.get()) {
                     dependencies.add(
                         "implementation",
-                        scalerVersionCatalog.retrofitKotlinXSerialization
+                        scalerVersionCatalog.retrofitKotlinXSerialization,
+                    )
+                }
+
+                // Scalars Converter
+                if(useScalarsConverter.get()) {
+                    dependencies.add(
+                        "implementation",
+                        scalerVersionCatalog.retrofitConverterScalars,
                     )
                 }
             }
