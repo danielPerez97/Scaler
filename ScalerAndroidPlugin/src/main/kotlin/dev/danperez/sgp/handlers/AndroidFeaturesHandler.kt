@@ -138,24 +138,26 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
             }
         }
 
-        project.logger.debug("Extension is: $extension")
-        // API Url
-        when(extension) {
-            is ApplicationExtension -> {
-                with(extension) {
-                    buildTypes {
-                        debug {
-                            buildConfigField("String", "API_URL", "\"${apiUrl.get()}\"")
+        if(provideDebugBuildUrlInBuildConfig.get()) {
+            project.logger.debug("Extension is: $extension")
+            // API Url
+            when(extension) {
+                is ApplicationExtension -> {
+                    with(extension) {
+                        buildTypes {
+                            debug {
+                                buildConfigField("String", "API_URL", "\"${apiUrl.get()}\"")
+                            }
+                        }
+
+                        buildFeatures {
+                            buildConfig = true
                         }
                     }
-
-                    buildFeatures {
-                        buildConfig = true
-                    }
                 }
-            }
-            else -> {
-                project.logger.debug("No BuildConfigField's for Library modules")
+                else -> {
+                    project.logger.debug("No BuildConfigField's for Library modules")
+                }
             }
         }
     }
