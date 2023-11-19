@@ -71,13 +71,30 @@ class ScalerVersionCatalog(private val versionCatalog: VersionCatalog)
 }
 
 private fun VersionCatalog.findVersionOrError(alias: String): VersionConstraint {
-    return findVersion(alias).getOrNull() ?: error("Please add $alias under your [versions] in libs.versions.toml")
+    return findVersion(alias).getOrNull() ?: versionError(alias)
 }
 
 private fun VersionCatalog.findPluginOrError(alias: String): Provider<PluginDependency> {
-    return findPlugin(alias).getOrNull() ?: error("Please add $alias under your [plugins] in libs.versions.toml")
+    return findPlugin(alias).getOrNull() ?: pluginError(alias)
 }
 
 private fun VersionCatalog.findLibraryOrError(alias: String): Provider<MinimalExternalModuleDependency> {
-    return findLibrary(alias).getOrNull() ?: error("Please add $alias under your [libraries] in libs.versions.toml")
+    return findLibrary(alias).getOrNull() ?: libraryError(alias)
 }
+
+inline fun versionError(alias: String): Nothing {
+    throw AliasNotFoundException("'$alias' is required under [versions] in libs.versions.toml")
+}
+
+inline fun pluginError(alias: String): Nothing {
+    throw AliasNotFoundException("'$alias' is required under [plugins] in libs.versions.toml")
+}
+
+inline fun libraryError(alias: String): Nothing {
+    throw AliasNotFoundException("'$alias' is required under [libraries] in libs.versions.toml")
+}
+
+/**
+ * Exception thrown when an alias is not defined in the root /gradle/libs.versions.toml.
+ */
+class AliasNotFoundException(message: String? = null, cause: Throwable? = null): Exception(message, cause)
