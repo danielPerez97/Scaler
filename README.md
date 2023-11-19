@@ -86,7 +86,25 @@ retrofit-ktx-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-
 
 
 # Usage
-Currently Scaler isn't published anywhere, but you can use it locally by using `includeBuild()` in your projects settings.gradle.kts file:
+You can use this plugin by configuring Github Packages in Gradle with the following `maven {}` call in `settings.gradle.kts`:
+```kotlin
+pluginManagement {
+    repositories {
+        maven {
+            name = "scaler-gradle-plugin"
+            url = uri("https://maven.pkg.github.com/danielPerez97/Scaler")
+            credentials {
+                val keystoreFile = file("keystore.properties") // Do not check this file into version control since it will contain sensitive information
+                val keystoreProperties = java.util.Properties()
+                keystoreProperties.load(java.io.FileInputStream(keystoreFile))
+                username = keystoreProperties.getProperty("githubUser") ?: error("No username")
+                password = keystoreProperties.getProperty("githubToken") ?: error("No token")
+            }
+        }
+    }
+}
+```
+If you want to build and test locally, you can use the following `includeBuild()` in your projects `settings.gradle.kts` file in conjunction with the above:
 
 ```kotlin
 // settings.gradle.kts
