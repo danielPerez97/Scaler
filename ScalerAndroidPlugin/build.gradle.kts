@@ -10,6 +10,11 @@ gradlePlugin {
         id = "dev.danperez.scaler"
         implementationClass = "dev.danperez.sgp.plugins.ScalerLibraryPlugin"
     }
+
+    plugins.create("scaler-root") {
+        id = "dev.danperez.scaler.base"
+        implementationClass = "dev.danperez.sgp.plugins.ScalerBasePlugin"
+    }
 }
 
 dependencies {

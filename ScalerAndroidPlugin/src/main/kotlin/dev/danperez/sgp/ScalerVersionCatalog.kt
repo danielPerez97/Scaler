@@ -12,20 +12,20 @@ class ScalerVersionCatalog(private val versionCatalog: VersionCatalog)
 
     // Versions
     internal val composeCompiler: VersionConstraint
-        get() = versionCatalog.findVersion("composeCompiler").get()
+        get() = versionCatalog.findVersionOrError("composeCompiler")
 
     internal val scalerCompilerSdkVersion: VersionConstraint
-        get() = versionCatalog.findVersion("scaler-compilersdkVersion").get()
+        get() = versionCatalog.findVersionOrError("scaler-compilersdkVersion")
 
     internal val scalerMinSdkVersion: VersionConstraint
-        get() = versionCatalog.findVersion("scaler-minsdkVersion").get()
+        get() = versionCatalog.findVersionOrError("scaler-minsdkVersion")
 
     internal val scalerTargetSdkVersion: VersionConstraint
-        get() = versionCatalog.findVersion("scaler-targetsdkVersion").get()
+        get() = versionCatalog.findVersionOrError("scaler-targetsdkVersion")
 
     // Plugins
     internal val kotlinXSerialization: Provider<PluginDependency>
-        get() = versionCatalog.findPlugin("kotlinx-serialization").get()
+        get() = versionCatalog.findPluginOrError("kotlinx-serialization")
 
     // Libraries
 
@@ -70,6 +70,14 @@ class ScalerVersionCatalog(private val versionCatalog: VersionCatalog)
         get() = versionCatalog.findLibraryOrError("retrofit-ktx-converter")
 }
 
+private fun VersionCatalog.findVersionOrError(alias: String): VersionConstraint {
+    return findVersion(alias).getOrNull() ?: error("Please add $alias under your [versions] in libs.versions.toml")
+}
+
+private fun VersionCatalog.findPluginOrError(alias: String): Provider<PluginDependency> {
+    return findPlugin(alias).getOrNull() ?: error("Please add $alias under your [plugins] in libs.versions.toml")
+}
+
 private fun VersionCatalog.findLibraryOrError(alias: String): Provider<MinimalExternalModuleDependency> {
-    return findLibrary(alias).getOrNull() ?: error("Please add $alias to your libs.versions.toml")
+    return findLibrary(alias).getOrNull() ?: error("Please add $alias under your [libraries] in libs.versions.toml")
 }
