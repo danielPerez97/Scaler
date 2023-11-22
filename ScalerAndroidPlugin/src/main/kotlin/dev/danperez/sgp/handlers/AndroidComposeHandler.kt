@@ -20,17 +20,19 @@ public abstract class AndroidComposeHandler @Inject constructor(
     internal val enabled: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val useActivityArtifact: Property<Boolean> = objects.property<Boolean>().convention(false)
     private val includeTestArtifactEnabled: Property<Boolean> = objects.property<Boolean>().convention(false)
+    private val bomVersion: Property<String> = objects.property<String>().convention("2023.03.00")
 
     fun activity() {
         useActivityArtifact.setDisallowChanges(true)
     }
 
     fun includeTestArtifact() {
-        includeTestArtifactEnabled.set(true)
+        includeTestArtifactEnabled.setDisallowChanges(true)
     }
 
-    internal fun enable() {
-        enabled.set(true)
+    internal fun enable(billOfMaterialsVersion: String?) {
+        billOfMaterialsVersion?.let { bomVersion.setDisallowChanges(billOfMaterialsVersion) }
+        enabled.setDisallowChanges(true)
     }
 
     internal fun configureProject(
@@ -49,7 +51,7 @@ public abstract class AndroidComposeHandler @Inject constructor(
                     kotlinCompilerExtensionVersion = scalerVersionCatalog.composeCompiler.requiredVersion
                 }
                 dependencies.apply {
-                    add("implementation", platform("androidx.compose:compose-bom:2023.03.00"))
+                    add("implementation", platform("androidx.compose:compose-bom:${bomVersion.get()}"))
                     add("implementation", "androidx.compose.ui:ui")
                     add("implementation", "androidx.compose.ui:ui-graphics")
                     add("implementation", "androidx.compose.ui:ui-tooling-preview")
@@ -59,10 +61,11 @@ public abstract class AndroidComposeHandler @Inject constructor(
                     add("debugImplementation", "androidx.compose.ui:ui-test-manifest")
 
                     if(useActivityArtifact.get()) {
-                        add("implementation", "androidx.activity:activity-compose:1.7.2")
+                        add("implementation", scalerVersionCatalog.composeUiActivity)
                     }
 
                     if(includeTestArtifactEnabled.get()) {
+                        add("androidTestImplementation", platform("androidx.compose:compose-bom:${bomVersion.get()}"))
                         add("androidTestImplementation", "androidx.compose.ui:ui-test-junit4")
                     }
                 }

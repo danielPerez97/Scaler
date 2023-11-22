@@ -47,8 +47,8 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     /**
      * Configures Compose in an Android App/Library.
      */
-    fun compose(action: Action<AndroidComposeHandler>? = null) {
-        composeHandler.enable()
+    fun compose(billOfMaterialsVersion: String? = null, action: Action<AndroidComposeHandler>? = null) {
+        composeHandler.enable(billOfMaterialsVersion)
         action?.execute(composeHandler)
     }
 

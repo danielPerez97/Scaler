@@ -31,6 +31,10 @@ class ScalerVersionCatalog(private val versionCatalog: VersionCatalog)
 
     internal val anvilAnnotationsOptional: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrError("anvil-annotations-optional")
+
+    internal val composeUiActivity: Provider<MinimalExternalModuleDependency>
+        get() = versionCatalog.findLibraryOrError("compose-ui-activity")
+
     internal val daggerApi: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrError("dagger-api")
 
