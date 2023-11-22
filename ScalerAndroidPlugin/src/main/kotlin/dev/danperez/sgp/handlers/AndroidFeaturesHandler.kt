@@ -42,6 +42,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     private val moleculeEnabled = objects.property<Boolean>().convention(false)
     private val provideDebugBuildUrlInBuildConfig = objects.property<Boolean>().convention(false)
     private val apiUrl = objects.property<String>()
+    private val timber = objects.property<Boolean>().convention(false)
 
     /**
      * Configures Compose in an Android App/Library.
@@ -94,6 +95,10 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
         retainedTypes.value(types.toList())
     }
 
+    fun timber() {
+        timber.setDisallowChanges(true)
+    }
+
     fun testing(action: Action<AndroidTestingFeaturesHandler>) {
         action.execute(testingHandler)
     }
@@ -143,6 +148,11 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
                         )
                     }
                 }
+            }
+
+            // Timber
+            if(timber.get()) {
+                dependencies.add("implementation", scalerVersionCatalog.timber)
             }
 
             // Testing features

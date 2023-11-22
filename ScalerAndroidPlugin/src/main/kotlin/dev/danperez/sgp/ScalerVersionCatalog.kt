@@ -68,6 +68,9 @@ class ScalerVersionCatalog(private val versionCatalog: VersionCatalog)
 
     internal val retrofitKotlinXSerialization: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrError("retrofit-ktx-converter")
+
+    internal val timber: Provider<MinimalExternalModuleDependency>
+        get() = versionCatalog.findLibraryOrError("timber")
 }
 
 private fun VersionCatalog.findVersionOrError(alias: String): VersionConstraint {
