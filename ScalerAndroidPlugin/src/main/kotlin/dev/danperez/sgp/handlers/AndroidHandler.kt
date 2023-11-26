@@ -4,6 +4,7 @@ import dev.danperez.sgp.ScalerVersionCatalog
 import dev.danperez.sgp.handlers.extensions.ScalerAndroidAppExtension
 import dev.danperez.sgp.handlers.extensions.ScalerAndroidLibraryExtension
 import dev.danperez.sgp.newInstance
+import dev.danperez.sgp.property
 import org.gradle.api.Action
 import org.gradle.api.GradleException
 import org.gradle.api.model.ObjectFactory
@@ -28,6 +29,7 @@ public abstract class AndroidHandler @Inject constructor(
 
     @Suppress("MemberVisibilityCanBePrivate")
     internal val featuresHandler = objects.newInstance<AndroidFeaturesHandler>(scalerVersionCatalog)
+    internal val useMockFlavor = objects.property<Boolean>().convention(false)
 
     public fun app(
         applicationId: String,
@@ -53,4 +55,34 @@ public abstract class AndroidHandler @Inject constructor(
     public fun features(action: Action<AndroidFeaturesHandler>) {
         action.execute(featuresHandler)
     }
+
+//    public fun useMockFlavor() {
+//        useMockFlavor.setDisallowChanges(true)
+//    }
+//
+//    internal fun configureProject(extension: CommonExtension<*, *, *, *, *>, project: Project) {
+//        // Configure Mock Flavor
+//        with(extension) {
+//            flavorDimensions += "offline"
+//            if (useMockFlavor.get()) {
+//                productFlavors {
+//                    create("mock") {
+//                        dimension = "offline"
+//                        if(extension is ApplicationExtension) {
+//                            with(this as ApplicationProductFlavor) {
+//                                applicationIdSuffix = ".offline"
+//                                versionNameSuffix = "-offline"
+//                            }
+//                        }
+//                    }
+//                    create("prod") {
+//                        dimension = "offline"
+//                    }
+//                }
+//            }
+//        }
+//
+//        // Configure Features
+//        featuresHandler.configureProject(extension, project)
+//    }
 }

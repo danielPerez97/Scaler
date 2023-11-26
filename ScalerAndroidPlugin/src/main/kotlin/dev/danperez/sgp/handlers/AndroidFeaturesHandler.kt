@@ -43,6 +43,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
     private val provideDebugBuildUrlInBuildConfig = objects.property<Boolean>().convention(false)
     private val apiUrl = objects.property<String>()
     private val timber = objects.property<Boolean>().convention(false)
+    private val viewBinding = objects.property<Boolean>().convention(false)
 
     /**
      * Configures Compose in an Android App/Library.
@@ -103,6 +104,10 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
         action.execute(testingHandler)
     }
 
+    fun viewBinding() {
+        viewBinding.setDisallowChanges(true)
+    }
+
     /**
      * Takes a project and configures this setup against a [com.android.build.api.dsl.LibraryExtension] or
      * [com.android.build.api.dsl.ApplicationExtension], which both extend from [com.android.build.api.dsl.CommonExtension].
@@ -157,6 +162,9 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
 
             // Testing features
             testingHandler.configureProject(extension, project)
+
+            // ViewBinding
+            extension.buildFeatures.viewBinding = viewBinding.get()
         }
 
         if(provideDebugBuildUrlInBuildConfig.get()) {
