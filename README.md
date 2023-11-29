@@ -84,8 +84,30 @@ retrofit = { module = "com.squareup.retrofit:retrofit", version.ref = "retrofit"
 retrofit-ktx-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version = "1.0.0" }
 ```
 
+# Plugins
+Scaler provides two plugins, a base plugin for the root module and another plugin that provides the Scaler DSL. 
 
-# Usage
+The base plugin analyzes your `libs.versions.toml`  file and identifies any missing definitions,
+preventing version errors in your app and library modules. The other plugin is the DSL plugin.
+
+To start using Scaler, put the following on your root `build.gradle.kts` file:
+```kotlin
+plugins {
+    id("dev.danperez.scaler.base") version "0.24.0" // Base Plugin, only for the root project
+    id("dev.danperez.scaler") version "0.24.0" apply false // DSL Plugin, for all the other projects
+}
+```
+Then, in your non-root `build.gradle.kts` files, you can start using Scaler with just the following definition:
+```kotlin
+plugins {
+    id("dev.danperez.scaler")
+}
+```
+
+That's it. Gradle should print out warnings if you are missing any definitions in your `libs.versions.toml` and you
+should have access to the DSL wherever the DSL plugin is applied.
+
+# Installation
 You can use this plugin by configuring Github Packages in Gradle with the following `maven {}` call in `settings.gradle.kts`:
 ```kotlin
 pluginManagement {
