@@ -16,6 +16,7 @@ public abstract class JvmFeaturesHandler @Inject constructor(
     // Dagger Features
     internal val daggerHandler = objects.newInstance<DaggerHandler>(scalerVersionCatalog)
     private val okHttpHandler = objects.newInstance<OkHttpHandler>(scalerVersionCatalog)
+    private val okioEnabled = objects.property<Boolean>().convention(false)
     private val retrofitHandler = objects.newInstance<RetrofitHandler>(scalerVersionCatalog)
     private val useKotlinXSerialization = objects.property<Boolean>().convention(false)
 
@@ -44,6 +45,10 @@ public abstract class JvmFeaturesHandler @Inject constructor(
         action?.execute(okHttpHandler)
     }
 
+    fun okio() {
+        okioEnabled.setDisallowChanges(true)
+    }
+
     /**
      * Adds Retrofit as a dependency
      */
@@ -70,6 +75,11 @@ public abstract class JvmFeaturesHandler @Inject constructor(
             // OkHttp
             if(okHttpHandler.useOkHttp.get()) {
                 okHttpHandler.configureProject(project)
+            }
+
+            // Okio
+            if(okioEnabled.get()) {
+                dependencies.add("implementation", scalerVersionCatalog.okio)
             }
 
             // Retrofit

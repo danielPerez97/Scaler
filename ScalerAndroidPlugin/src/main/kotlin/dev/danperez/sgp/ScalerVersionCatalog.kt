@@ -58,6 +58,9 @@ class ScalerVersionCatalog(private val versionCatalog: VersionCatalog)
     internal val okhttpLoggingInterceptor: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrError("okhttp-logging-interceptor")
 
+    internal val okio: Provider<MinimalExternalModuleDependency>
+        get() = versionCatalog.findLibraryOrError("okio")
+
     internal val retainedActivity: Provider<MinimalExternalModuleDependency>
         get() = versionCatalog.findLibraryOrError("retained-activity")
 
