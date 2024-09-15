@@ -41,7 +41,7 @@ internal class ScalerAndroidConfiguration(
     private fun Project.configureKotlin() {
         configure<KotlinAndroidProjectExtension> {
             compilerOptions {
-                jvmToolchain(8)
+                jvmToolchain(11)
             }
         }
     }
@@ -80,8 +80,8 @@ internal class ScalerAndroidConfiguration(
                     }
                 }
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_1_8
-                    targetCompatibility = JavaVersion.VERSION_1_8
+                    sourceCompatibility = JavaVersion.VERSION_11
+                    targetCompatibility = JavaVersion.VERSION_11
                 }
                 packaging {
                     resources {
@@ -101,7 +101,7 @@ internal class ScalerAndroidConfiguration(
             }
 
             configure<LibraryExtension> {
-                applyAndroidVersions(scalerVersionCatalog, 8)
+                applyAndroidVersions(scalerVersionCatalog, 11)
             }
         }
     }
