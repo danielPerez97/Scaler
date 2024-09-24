@@ -42,6 +42,7 @@ public abstract class AndroidComposeHandler @Inject constructor(
         require(enabled.get()) { "Internal Error: Attempting to configure Compose when it was never explicitly enabled." }
 
         with(project) {
+            pluginManager.apply(scalerVersionCatalog.composeCompilerPlugin.get().pluginId)
             with(extension) {
                 // Compose
                 buildFeatures {

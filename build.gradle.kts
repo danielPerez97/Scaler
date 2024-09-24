@@ -8,13 +8,14 @@ buildscript {
 }
 
 plugins {
-    id("com.android.application") version "8.1.2" apply false
-    id("com.android.library") version "8.1.2" apply false
+    alias(libs.plugins.agp.application) apply false
+    alias(libs.plugins.agp.library) apply false
     id("org.jetbrains.kotlin.android") version "1.9.10" apply false
     id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
-    id("com.squareup.anvil") version "2.4.8" apply false
+    id("com.squareup.anvil") version "2.5.0-beta09" apply false
     id("org.jetbrains.kotlin.jvm") version "1.9.10" apply false
     id("app.cash.sqldelight") version "2.0.0" apply false
+    alias(libs.plugins.compose.compiler) apply false
     `maven-publish`
 }
 

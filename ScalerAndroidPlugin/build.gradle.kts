@@ -25,6 +25,7 @@ dependencies {
 
     // Plugins
     compileOnly(libs.gradlePlugins.compose)
+    compileOnly(libs.gradlePlugins.compose.compiler)
     compileOnly(libs.gradlePlugins.anvil)
     compileOnly(libs.gradlePlugins.kgp)
 }

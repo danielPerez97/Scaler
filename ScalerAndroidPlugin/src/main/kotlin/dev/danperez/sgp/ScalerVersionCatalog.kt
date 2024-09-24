@@ -27,6 +27,9 @@ class ScalerVersionCatalog(private val versionCatalog: VersionCatalog)
     internal val kotlinXSerialization: Provider<PluginDependency>
         get() = versionCatalog.findPluginOrError("kotlinx-serialization")
 
+    internal val composeCompilerPlugin: Provider<PluginDependency>
+        get() = versionCatalog.findPluginOrError("compose-compiler")
+
     // Libraries
 
     internal val anvilAnnotationsOptional: Provider<MinimalExternalModuleDependency>
