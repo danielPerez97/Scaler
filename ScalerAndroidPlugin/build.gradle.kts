@@ -17,6 +17,10 @@ gradlePlugin {
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
 dependencies {
     compileOnly("com.android.tools.build:gradle:8.1.2")
     compileOnly(platform(libs.kotlin.bom))
@@ -28,4 +32,7 @@ dependencies {
     compileOnly(libs.gradlePlugins.compose.compiler)
     compileOnly(libs.gradlePlugins.anvil)
     compileOnly(libs.gradlePlugins.kgp)
+
+    // Testing
+    testImplementation(libs.bundles.junit)
 }

@@ -6,6 +6,7 @@ composeCompiler = "1.5.3"
 compose-jb = "1.5.2"
 gradlePublish = "1.2.1"
 jdk = "20"
+junit = "5.11.1"
 kotlin = "2.0.20"
 ksp = "1.9.0-1.0.12"
 dagger = "2.48"
@@ -43,6 +44,8 @@ gradlePlugins-compose = { module = "org.jetbrains.compose:compose-gradle-plugin"
 gradlePlugins-compose-compiler = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 gradlePlugins-kgp = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradlePlugins-kgp-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
@@ -53,3 +56,9 @@ retained-fragment = { module = "dev.marcellogalhardo:retained-fragment", version
 sqldelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-driver-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-dialect-sqlite = { module = "app.cash.sqldelight:sqlite-3-25-dialect", version.ref = "sqldelight" }
+
+[bundles]
+junit = [
+    "junit-api",
+    "junit-engine"
+]
