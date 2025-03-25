@@ -31,7 +31,7 @@ abstract class AndroidTestingFeaturesHandler @Inject constructor(
     }
 
     // TODO: Get this artifacts into [ScalerVersionCatalog]
-    internal fun configureProject(extension: CommonExtension<*, *, *, *, *>, project: Project) {
+    internal fun configureProject(extension: CommonExtension<*, *, *, *, *, *>, project: Project) {
         with(project.dependencies) {
             if(useJunit4.get()) {
                 add("testImplementation", "junit:junit:4.13.2")

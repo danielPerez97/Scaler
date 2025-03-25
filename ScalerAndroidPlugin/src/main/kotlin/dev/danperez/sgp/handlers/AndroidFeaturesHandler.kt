@@ -112,7 +112,7 @@ public abstract class AndroidFeaturesHandler @Inject constructor(
      * Takes a project and configures this setup against a [com.android.build.api.dsl.LibraryExtension] or
      * [com.android.build.api.dsl.ApplicationExtension], which both extend from [com.android.build.api.dsl.CommonExtension].
      */
-    internal fun configureProject(extension: CommonExtension<*,*,*,*,*>, project: Project) {
+    internal fun configureProject(extension: CommonExtension<*,*,*,*,*,*>, project: Project) {
         // Compose
         if(composeHandler.enabled.get()) {
             composeHandler.configureProject(extension, project)

@@ -36,7 +36,7 @@ public abstract class AndroidComposeHandler @Inject constructor(
     }
 
     internal fun configureProject(
-        extension: CommonExtension<*, *, *, *, *>,
+        extension: CommonExtension<*, *, *, *, *, *>,
         project: Project,
     ) {
         require(enabled.get()) { "Internal Error: Attempting to configure Compose when it was never explicitly enabled." }

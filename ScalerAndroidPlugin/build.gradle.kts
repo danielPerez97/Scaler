@@ -22,7 +22,7 @@ tasks.withType<Test> {
 }
 
 dependencies {
-    compileOnly("com.android.tools.build:gradle:8.1.2")
+    compileOnly("com.android.tools.build:gradle:8.9.0")
     compileOnly(platform(libs.kotlin.bom))
     compileOnly(libs.kotlin.reflect)
     compileOnly(libs.agp)

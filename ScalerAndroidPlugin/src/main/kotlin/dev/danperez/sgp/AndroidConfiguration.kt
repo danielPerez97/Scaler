@@ -9,7 +9,7 @@ import org.gradle.api.JavaVersion
  * Applies the compileSdk and jvmTargetVersion to a [LibraryExtension] or [ApplicationExtension],
  * which both extend from [CommonExtension].
  */
-fun CommonExtension<*, *, *, *, *>.applyAndroidVersions(
+fun CommonExtension<*, *, *, *, *, *>.applyAndroidVersions(
     scalerVersionCatalog: dev.danperez.sgp.ScalerVersionCatalog,
     jvmTargetVersion: Int,
     )
@@ -17,7 +17,7 @@ fun CommonExtension<*, *, *, *, *>.applyAndroidVersions(
     val compileSdk = scalerVersionCatalog.scalerCompilerSdkVersion.requiredVersion
     val javaVersion = JavaVersion.toVersion(jvmTargetVersion)
 
-    compileSdkVersion("android-$compileSdk")
+    compileSdkPreview = "android-$compileSdk"
     defaultConfig {
         minSdk = scalerVersionCatalog.scalerMinSdkVersion.requiredVersion.toInt()
     }

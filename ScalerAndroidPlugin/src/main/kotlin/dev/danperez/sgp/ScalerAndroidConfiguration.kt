@@ -106,7 +106,7 @@ internal class ScalerAndroidConfiguration(
         }
     }
 
-    private fun CommonExtension<*,*,*,*,*>.configureAndroidModule(project: Project) {
+    private fun CommonExtension<*,*,*,*,*,*>.configureAndroidModule(project: Project) {
         // Namespace
         when(this) {
             is ApplicationExtension -> {
