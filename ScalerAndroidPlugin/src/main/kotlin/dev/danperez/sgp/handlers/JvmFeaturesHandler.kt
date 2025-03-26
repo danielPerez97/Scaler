@@ -28,6 +28,7 @@ public abstract class JvmFeaturesHandler @Inject constructor(
     fun dagger(useDaggerCompiler: Boolean = false, action: Action<DaggerHandler>? = null) {
         daggerHandler.enabled.setDisallowChanges(true)
         daggerHandler.useDaggerCompiler.setDisallowChanges(useDaggerCompiler)
+        action?.execute(daggerHandler)
     }
 
     fun kotlinXSerialization() {
